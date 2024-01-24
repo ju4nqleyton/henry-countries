@@ -1,16 +1,23 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
+import Navbar from "./components/Navbar";
 import Landing from "./views/Landing";
 import Home from "./views/Home";
+import CreateAnActivity from "./views/CreateAnActivity";
 import "./App.css";
 
-function App() {
+export default function App() {
+  const location = useLocation();
+  const showNavbar = location.pathname !== "/";
+
   return (
-    <Routes>
-      <Route path="/" element={<Landing />} />
-      <Route path="/home" element={<Home />} />
-    </Routes>
+    <>
+      {showNavbar && <Navbar />}
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/create-activity" element={<CreateAnActivity />} />
+      </Routes>
+    </>
   );
 }
-
-export default App;
