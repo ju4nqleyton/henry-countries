@@ -1,8 +1,9 @@
-import { GET_ALL_COUNTRIES } from "./types";
+import { GET_ALL_COUNTRIES, GET_COUNTRIES_BY_NAME } from "./types";
 
 const initialState = {
   allCountries: [],
   allCountriesCopy: [],
+  resetCards: "off",
 };
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -12,6 +13,12 @@ const reducer = (state = initialState, { type, payload }) => {
         ...state,
         allCountries: payload,
         allCountriesCopy: payload,
+      };
+    case GET_COUNTRIES_BY_NAME:
+      return {
+        ...state,
+        allCountriesCopy: payload,
+        resetCards: "name",
       };
     default:
       return state;

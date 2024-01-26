@@ -1,7 +1,21 @@
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { getAllCountriesByName } from "../redux/action";
+
 export default function SearchBar() {
+  const dispatch = useDispatch();
+  const [searchInput, setSearchInput] = useState("");
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const currentSearchInput = searchInput;
+    dispatch(getAllCountriesByName(currentSearchInput));
+    setSearchInput("");
+  };
+
   return (
     <div className="mt-8 flex items-center justify-center sm:mx-4 md:mx-20">
-      <form className="w-full" onSubmit={() => console.log()}>
+      <form className="w-full" onSubmit={handleSubmit}>
         <label
           htmlFor="default-search"
           className="sr-only mb-2 text-sm font-medium text-slate-100"
@@ -15,8 +29,8 @@ export default function SearchBar() {
             id="default-search"
             className="block w-full rounded-lg border border-sky-500 bg-zinc-700 p-4 ps-10 text-sm text-slate-300 focus:border-sky-600 focus:ring-sky-600"
             placeholder="Search a country..."
-            value={""}
-            onChange={""}
+            value={searchInput}
+            onChange={(event) => setSearchInput(event.target.value)}
             required
           />
           <button

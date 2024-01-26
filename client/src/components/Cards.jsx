@@ -2,7 +2,12 @@ import { useState, useEffect } from "react";
 import Card from "./Card";
 import Pagination from "./Pagination";
 
-export default function Cards({ allCountries, currentPage, setPage }) {
+export default function Cards({
+  allCountries,
+  currentPage,
+  setPage,
+  resetCards,
+}) {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -26,13 +31,23 @@ export default function Cards({ allCountries, currentPage, setPage }) {
             />
           ))}
         </div>
-        <Pagination
-          allCountries={allCountries}
-          currentPage={currentPage}
-          setPage={setPage}
-          itemsPerPage={12}
-          totalPages={Math.ceil(allCountries.length / 12)}
-        />
+        {resetCards === "off" ? (
+          <Pagination
+            allCountries={allCountries}
+            currentPage={currentPage}
+            setPage={setPage}
+            itemsPerPage={12}
+            totalPages={Math.ceil(allCountries.length / 12)}
+          />
+        ) : (
+          <Pagination
+            allCountries={allCountries}
+            currentPage={1}
+            setPage={setPage}
+            itemsPerPage={12}
+            totalPages={Math.ceil(allCountries.length / 12)}
+          />
+        )}
       </div>
     </div>
   );

@@ -40,14 +40,22 @@ export default function Pagination({
     <div className="mt-10 flex items-center justify-between border-t border-sky-600 bg-zinc-700 px-4 py-3 sm:px-6">
       <div className="flex flex-1 justify-between sm:hidden">
         <span
-          className="relative inline-flex cursor-pointer items-center rounded-md border border-sky-600 bg-sky-500 px-4 py-2 text-sm font-medium text-slate-200 hover:bg-sky-600"
-          onClick={() => setPagePrevious()}
+          className={`relative inline-flex cursor-pointer items-center rounded-md border ${
+            currentPage === 1
+              ? "pointer-events-none bg-gray-400 text-gray-600"
+              : "border-sky-600 bg-sky-500 text-slate-200 hover:bg-sky-600"
+          } px-4 py-2 text-sm font-medium`}
+          onClick={() => currentPage > 1 && setPagePrevious()}
         >
           Previous
         </span>
         <span
-          className="relative ml-3 inline-flex cursor-pointer items-center rounded-md border border-sky-600 bg-sky-500 px-4 py-2 text-sm font-medium text-slate-200 hover:bg-sky-600"
-          onClick={() => setPageNext()}
+          className={`relative ml-3 inline-flex cursor-pointer items-center rounded-md border ${
+            currentPage === Math.ceil(allCountries.length / itemsPerPage)
+              ? "pointer-events-none bg-gray-400 text-gray-600"
+              : "border-sky-600 bg-sky-500 text-slate-200 hover:bg-sky-600"
+          } px-4 py-2 text-sm font-medium`}
+          onClick={() => currentPage < totalPages && setPageNext()}
         >
           Next
         </span>
@@ -67,7 +75,9 @@ export default function Pagination({
           >
             <span
               onClick={() => setPagePrevious()}
-              className="relative inline-flex cursor-pointer items-center rounded-l-md px-2 py-2 text-slate-200 ring-1 ring-inset ring-gray-300 hover:bg-sky-600 focus:z-20 focus:outline-offset-0"
+              className={`relative inline-flex cursor-pointer items-center rounded-l-md px-2 py-2 text-slate-200 ring-1 ring-inset ring-gray-300 hover:bg-sky-600 focus:z-20 focus:outline-offset-0 ${
+                currentPage === 1 ? "pointer-events-none opacity-50" : ""
+              }`}
             >
               <span className="sr-only">Previous</span>
               <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
@@ -87,7 +97,11 @@ export default function Pagination({
             ))}
             <span
               onClick={() => setPageNext()}
-              className="relative inline-flex cursor-pointer items-center rounded-r-md px-2 py-2 text-slate-200 ring-1 ring-inset ring-gray-300 hover:bg-sky-600 focus:z-20 focus:outline-offset-0"
+              className={`relative inline-flex cursor-pointer items-center rounded-r-md px-2 py-2 text-slate-200 ring-1 ring-inset ring-gray-300 hover:bg-sky-600 focus:z-20 focus:outline-offset-0 ${
+                currentPage === Math.ceil(allCountries.length / itemsPerPage)
+                  ? "pointer-events-none opacity-50"
+                  : ""
+              }`}
             >
               <span className="sr-only">Next</span>
               <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
