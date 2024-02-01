@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Landing from "./views/Landing";
 import Home from "./views/Home";
 import CreateAnActivity from "./views/CreateAnActivity";
+import Detail from "./views/Detail";
 import "./App.css";
 
 export default function App() {
@@ -17,6 +18,7 @@ export default function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/home" element={<Home />} />
         <Route path="/create-activity" element={<CreateAnActivity />} />
+        <Route path="/detail/:id" element={<Detail />} />
       </Routes>
     </>
   );

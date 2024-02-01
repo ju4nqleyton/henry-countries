@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function Card({ id, name, flag_image, continent }) {
   return (
-    <Link key={id} to={`/${id.toLowerCase()}`} className="group">
+    <Link key={id} to={`/detail/${id.toLowerCase()}`} className="group">
       <div className="aspect-h-1 aspect-w-1 xl:aspect-h-8 xl:aspect-w-7 w-full overflow-hidden rounded-lg bg-gray-200">
         <img
           src={flag_image}
