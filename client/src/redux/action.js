@@ -3,6 +3,8 @@ import {
   GET_ALL_COUNTRIES,
   GET_COUNTRIES_BY_NAME,
   GET_COUNTRY_BY_ID,
+  CREATE_ACTIVITY_SUCCESS,
+  CREATE_ACTIVITY_FAILURE,
 } from "./types";
 
 const URL = "http://localhost:3001";
@@ -45,6 +47,29 @@ export function getCountryById(id) {
       });
     } catch (error) {
       console.error(error.message);
+    }
+  };
+}
+
+export function createActivity(activity) {
+  return async function (dispatch) {
+    try {
+      const { name, difficulty, duration_hours, season } = activity;
+
+      if (!name || !difficulty || !duration_hours || !season) {
+        throw new Error("All fields are required");
+      }
+
+      const response = await axios.post(`${URL}/activities`, activity);
+      dispatch({
+        type: CREATE_ACTIVITY_SUCCESS,
+        payload: response.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: CREATE_ACTIVITY_FAILURE,
+        payload: error.message,
+      });
     }
   };
 }
